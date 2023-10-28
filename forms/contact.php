@@ -1,31 +1,36 @@
-if ($action=="")    /* display the contact form */
-    {
-    ?>
-    <form  action="" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="action" value="submit">
-    Your name:<br>
-    <input name="name" type="text" value="" size="30"/><br>
-    Your email:<br>
-    <input name="email" type="text" value="" size="30"/><br>
-    Your message:<br>
-    <textarea name="message" rows="7" cols="30"></textarea><br>
-    <input type="submit" value="Send email"/>
-    </form>
-    <?php
-    } 
-else                /* send the submitted data */
-    {
-    $name=$_REQUEST['name'];
-    $email=$_REQUEST['email'];
-    $message=$_REQUEST['message'];
-    if (($name=="")||($email=="")||($message==""))
-        {
-        echo "All fields are required, please fill <a href=\"\">the form</a> again.";
-        }
-    else{        
-        $from="From: $name<$email>\r\nReturn-path: $email";
-        $subject="Message sent from x.com";
-        mail("cameron.vandenberg17@gmail.com", $subject, $message, $from);
-        echo "Email sent!";
-        }
-    }  
+<?php
+// Output messages
+$responses = [];
+// Check if the form was submitted
+if (isset($_POST['email'], $_POST['subject'], $_POST['name'], $_POST['msg'])) {
+	// Validate email adress
+	if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+		$responses[] = 'Email is not valid!';
+	}
+	// Make sure the form fields are not empty
+	if (empty($_POST['email']) || empty($_POST['subject']) || empty($_POST['name']) || empty($_POST['msg'])) {
+		$responses[] = 'Please complete all fields!';
+	} 
+	// If there are no errors
+	if (!$responses) {
+		// Where to send the mail? It should be your email address
+		$to      = 'contact@example.com';
+		// Send mail from which email address?
+		$from = 'noreply@example.com';
+		// Mail subject
+		$subject = $_POST['subject'];
+		// Mail message
+		$message = $_POST['msg'];
+		// Mail headers
+		$headers = 'From: ' . $from . "\r\n" . 'Reply-To: ' . $_POST['email'] . "\r\n" . 'X-Mailer: PHP/' . phpversion();
+		// Try to send the mail
+		if (mail($to, $subject, $message, $headers)) {
+			// Success
+			$responses[] = 'Message sent!';		
+		} else {
+			// Fail
+			$responses[] = 'Message could not be sent! Please check your mail server settings!';
+		}
+	}
+}
+?>
