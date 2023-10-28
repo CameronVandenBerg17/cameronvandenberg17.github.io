@@ -1,5 +1,3 @@
-<?php
-$action=$_REQUEST['action'];
 if ($action=="")    /* display the contact form */
     {
     ?>
@@ -31,4 +29,3 @@ else                /* send the submitted data */
         echo "Email sent!";
         }
     }  
-?>
