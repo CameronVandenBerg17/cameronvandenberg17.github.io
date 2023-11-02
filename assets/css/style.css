@@ -258,11 +258,12 @@ h6 {
   z-index: 1;
 }
 
-#hero .hero-container {
-  position: relative;
-  z-index: 2;
-  min-width: 300px;
-}
+    #hero .hero-container {
+        position: relative;
+        z-index: 2;
+        vertical-align: middle;
+        min-width: 300px;
+    }
 
 #particles-js {
     height: 100vh;
@@ -287,14 +288,16 @@ h6 {
   font-size: 64px;
   font-weight: 700;
   line-height: 56px;
+  vertical-align: middle;
   color: #fff;
 }
 
 #hero p {
-  color: #fff;
-  margin-bottom: 50px;
-  font-size: 26px;
-  font-family: "Poppins", sans-serif;
+    color: #fff;
+    margin-bottom: 50px;
+    font-size: 26px;
+    vertical-align: middle;
+    font-family: "Poppins", sans-serif;
 }
 
 #hero p span {
